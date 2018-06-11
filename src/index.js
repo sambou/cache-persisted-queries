@@ -33,7 +33,7 @@ const typeDefs = /* GraphQL */ `
 const resolvers = {
   Query: {
     // Simulate slow data access
-    books: () => new Promise(resolve => setTimeout(() => resolve(books), 500)),
+    books: () => new Promise(resolve => setTimeout(() => resolve(books), Math.random() * 1000)),
   },
 };
 
@@ -43,17 +43,21 @@ const schema = makeExecutableSchema({ typeDefs, resolvers });
 // A map from query id -> query text
 // How this is created and persisted depends on your app
 const queryMap = {
-  a: /* GraphQL */ `query A {
-    books {
-      title
-      author
+  a: /* GraphQL */ `
+    query A {
+      books {
+        title
+        author
+      }
     }
-  }`,
-  b: /* GraphQL */ `query B {
-    books {
-      author
+  `,
+  b: /* GraphQL */ `
+    query B {
+      books {
+        author
+      }
     }
-  }`,
+  `,
 };
 
 // server-side lookup middleware for finding query id -> query text
